@@ -1,0 +1,50 @@
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("1.Создать одномерный массив a типа short. Заполнить его чётными числами от 2 до 18 включительно в порядке убывания.");
+        short [] a = new short [9];
+        int k = 0;
+        for (int i=18;i>=2;i-=2){
+            a[k]=(short) i;
+            System.out.print("\t"+a[k]);
+            k+=1;
+        }
+        System.out.println("");
+        System.out.println("2.Создать одномерный массив x типа float. Заполнить его 17-ю случайными числами в диапозоне от -2.0 до 2.0.");
+        float[] x = new float [17];
+        for (int i=0;i<17;i++) {
+            x[i]= (float) Math.random()* 4 - 2;
+            System.out.print("\t"+x[i]);
+        }
+        System.out.println("");
+        System.out.println("3.Создать двумерный массив b размером 9х17. Вычислить его элементы по следующей формуле (где x=x[j]:");
+        System.out.println(
+                "если b[i]=6, то b[i][j]=arcsin(0.1 * (d/4)^2);"+
+                "если b[i]∈{4,12,16,18}, то b[i][j] = (sin(ln(|d|)))^cos(ln(|d|));"+
+                "для остальных значений b[i]: b[i][j] = tan(((1/4*arctan(d/4))^3)^tan(ln(|d|))/(1-cos((pi/(0.5-d))^3)))");
+        System.out.println("4.Напечатать полученный в результате массив в формате с четырьмя знаками после запятой.");
+        double [][] b = new double [9][17];
+        for (int i=0;i<b.length;i++){
+            for (int j=0;j<17;j++){
+                double d =  x[j];
+                if (i==6) {
+                    b[i][j] = Math.asin(0.1 * Math.pow((d / 4), 2));
+                } else if (i==4 || i==12 || i==16 || i==18){
+                    b[i][j]=Math.pow(Math.sin(Math.log(Math.abs(d))),Math.cos(Math.log(Math.abs(d))));
+                } else{
+                    b[i][j]=Math.tan(Math.pow(Math.pow(1/4*Math.atan(d/4),3),(Math.tan(Math.log(Math.abs(d)))/(1-Math.cos(Math.pow(Math.PI/(0.5-d),3))))));
+                }
+            }
+        }
+        for (int i=0;i<b.length;i++){
+            for (int j=0;j<17;j++){
+                String answer = String.format("%.4f",b[i][j]);
+                System.out.print( answer + "\t");
+            }
+        System.out.println("\n");
+        }
+
+    }
+}
